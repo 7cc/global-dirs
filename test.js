@@ -2,15 +2,17 @@ import test from 'ava';
 import execa from 'execa';
 import importFresh from 'import-fresh';
 
-// unset `npm_config_prefix` variable because it's always set with NVM
-// eslint-disable-next-line camelcase
-process.env.npm_config_PREFIX = '';
-// eslint-disable-next-line camelcase
-process.env.npm_config_prefix = '';
-
 const globalDirectories = importFresh('.');
 
 console.log(globalDirectories);
+
+function unsetPrefix() {
+	// Unset `npm_config_prefix` variable because it's always set with NVM
+	// eslint-disable-next-line camelcase
+	process.env.npm_config_PREFIX = '';
+	// eslint-disable-next-line camelcase
+	process.env.npm_config_prefix = '';
+}
 
 const npm = async arguments_ => {
 	const {stdout} = await execa('npm', arguments_);
@@ -18,6 +20,9 @@ const npm = async arguments_ => {
 };
 
 test('npm.prefix', async t => {
+	unsetPrefix();
+	const globalDirectories = importFresh('.');
+	console.log(globalDirectories);
 	t.is(globalDirectories.npm.prefix, await npm(['prefix', '--global']));
 });
 
