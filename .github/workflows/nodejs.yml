@@ -19,6 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Test in shell
       run: |
+        npm install -D
         npx ava
       shell: bash
     - name: npm install, and test
