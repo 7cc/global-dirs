@@ -4,5 +4,9 @@ node_js:
 os:
   - linux
   - windows
+env:
+  jobs:
+    - npm_config_prefix=
+    - NPM_CONFIG_PREFIX=
 script:
-  - unset npm_config_prefix && npx ava
+  - npx ava
