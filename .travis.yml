@@ -5,4 +5,4 @@ os:
   - linux
   - windows
 script:
-  - npx ava
+  - unset npm_config_prefix && npx ava
